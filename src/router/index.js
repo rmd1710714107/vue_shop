@@ -5,8 +5,9 @@ const home = () => import("../view/home/home.vue")
 const welcome = () => import("../view/home/childComp/welcome.vue")
 const users=()=>import("../view/users/users")
 const rightsList=()=>import("../view/rights/rightsList/rights")
- const roles=()=>import("../view/rights/roles/roles")
- const categories=()=>import("../view/products/category/category.vue")
+const roles=()=>import("../view/rights/roles/roles")
+const categories=()=>import("../view/products/category/category.vue")
+const params=()=>import("../view/products/params/params.vue")
 vue.use(Router);
 const routes = [
   { path: "/", redirect: "/login" },
@@ -16,11 +17,12 @@ const routes = [
     component: home,
     redirect:"/welcome",
     children: [
-      { path: "/welcome", component: welcome },
+      {path: "/welcome", component: welcome },
       {path:"/users",component:users},
       {path:"/rights",component:rightsList},
       {path:"/roles",component:roles},
-      {path:"/categories",component:categories}
+      {path:"/categories",component:categories},
+      {path:"/params",component:params}
     ]
   }
 ]

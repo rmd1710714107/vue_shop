@@ -31,7 +31,6 @@ export default {
   mounted() {
     this.$bus.$on("allot", this.init);
   },
-  components: {},
   data() {
     return {
       initialData: null,

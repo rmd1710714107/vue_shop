@@ -7,10 +7,7 @@
 <script>
 
 export default {
-  name: 'app',
-  mounted () {
-    console.log(this.$bus);
-  }
+  name: 'app'
 }
 </script>
 
