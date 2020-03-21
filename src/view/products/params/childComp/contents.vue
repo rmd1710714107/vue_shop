@@ -22,12 +22,15 @@
             :disabled="isBtnDisable"
             @click="showAddDia"
           >{{item.btnVal}}</el-button>
-          <pre>{{item.tableData}}</pre>
-          <el-table :data="tableData[item.tableDataIndex]" empty-text="请选择商品分类" :highlight-current-row="true">
-            <el-table-column type="expand"></el-table-column>
+          <el-table :data="tableData[item.tableDataIndex]" :empty-text="emptyText" :highlight-current-row="true">
+            <el-table-column type="expand">
+              <template v-slot="scope">
+                <el-tag closable>{{scope.row.attr_vals}}</el-tag>
+              </template>
+            </el-table-column>
             <el-table-column type="index"></el-table-column>
             <el-table-column label="参数名称" prop="attr_name"></el-table-column>
-            <el-table-column label="参数名称">
+            <el-table-column label="参数操作">
               <template v-slot="scope">
                 <el-button type="primary" icon="el-icon-edit" size="mini" @click="queryParams(scope.row.attr_id)">编辑</el-button>
                 <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteParams(scope.row)">删除</el-button>
@@ -67,6 +70,7 @@ export default {
   data() {
     return {
       catList: [],
+      emptyText:"请选择商品分类",
       cateProps: {
         expandTrigger: "hover",
         value: "cat_id",
@@ -115,9 +119,13 @@ export default {
       } else {
         /* 根据所选分类的id和当前所处的面板获取对应的参数 */
         getParamsList(this.cateId, { sel: this.activeName }).then(res => {
+          console.log(res);
           if (res.data.meta.status !== 200) {
             message(true, "error", res.data.meta.msg);
           } else {
+            if(res.data.data.length===0){
+              this.emptyText="该分类参数为空";
+            }
             if (this.activeName === "many") {
               this.tableData["manyTable"] = res.data.data;
             } else {
@@ -129,7 +137,6 @@ export default {
     },
     showAddDia(arg){
       if(arg==="add"){
-        console.log("updated");
         this.getParams();//如果接收到的参数是"add"，则说明参数被修改了，需要刷新一下数据
       }
       this.addDigVis=!this.addDigVis;
@@ -151,6 +158,7 @@ export default {
       })
     },
     deleteParams(data) {
+      console.log(data);
         this.$confirm('此操作将永久删除该参数', '警告', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',

@@ -40,7 +40,6 @@ function editParams(params) {
   })
 }
 function deleteParams(params){
-  console.log(`categories/${params.cat_id}/attributes/${params.attr_id}`);
   return axios.delete(`categories/${params.cat_id}/attributes/${params.attr_id}`);
 }
 export{
