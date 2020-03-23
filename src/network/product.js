@@ -17,23 +17,23 @@ function getParentCate(params){
   })
 }
 function getParamsList(id,params){
+  console.log(`/categories/${id}/attributes`);
   return axios.get(`/categories/${id}/attributes`,{
     params
   })
 }
 function addParams(params){
-  return axios.post(`/categories/${params.cateId}/attributes`,{
+  return axios.post(`/categories/${params.cat_id}/attributes`,{
     attr_name:params.attr_name,
     attr_sel:params.attr_sel,
   })
 }
 function queryParams(params){
-  return axios.get(`categories/${params.cateId}/attributes/${params.attr_id}`,{
+  return axios.get(`categories/${params.cat_id}/attributes/${params.attr_id}`,{
     attr_sel:params.attr_sel
   })
 }
 function editParams(params) {
-  console.log(params);
   return axios.put(`categories/${params.cat_id}/attributes/${params.attr_id}`,{
     attr_name:params.attr_name,
     attr_sel:params.attr_sel
@@ -41,6 +41,13 @@ function editParams(params) {
 }
 function deleteParams(params){
   return axios.delete(`categories/${params.cat_id}/attributes/${params.attr_id}`);
+}
+function submitParamsTag(params){
+  return axios.put(`categories/${params.cat_id}/attributes/${params.attr_id}`,{
+    attr_name:params.attr_name,
+    attr_sel:params.attr_sel,
+    attr_vals:params.attr_vals
+  });
 }
 export{
   getCateList,
@@ -50,5 +57,6 @@ export{
   addParams,
   queryParams,
   editParams,
-  deleteParams
+  deleteParams,
+  submitParamsTag
 }

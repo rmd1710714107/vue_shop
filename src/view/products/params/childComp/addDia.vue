@@ -21,11 +21,9 @@ import { message } from "../../../../components/message";
 export default {
   name: "addDia",
   props: {
-    cateId:{
+    cat_id:{
       type:Number,
-      default(){
-        return ""
-      }
+      default:0
     },
     activeName:{
       type:String,
@@ -72,7 +70,7 @@ export default {
     addParams(){
       this.$refs.addFormRef.validate(valid=>{
         if(!valid) return;
-        addParams({cateId:this.cateId,attr_name:this.addForm.attr_name,attr_sel:this.activeName}).then(res=>{
+        addParams({cat_id:this.cat_id,attr_name:this.addForm.attr_name,attr_sel:this.activeName}).then(res=>{
           if(res.data.meta.status!==201){
             message(true,"error",res.data.meta.msg);
           }else{
