@@ -8,6 +8,7 @@ const rightsList=()=>import("../view/rights/rightsList/rights")
 const roles=()=>import("../view/rights/roles/roles")
 const categories=()=>import("../view/products/category/category.vue")
 const params=()=>import("../view/products/params/params.vue")
+const goods=()=>import("../view/products/goods/goods.vue")
 vue.use(Router);
 const routes = [
   { path: "/", redirect: "/login" },
@@ -22,7 +23,8 @@ const routes = [
       {path:"/rights",component:rightsList},
       {path:"/roles",component:roles},
       {path:"/categories",component:categories},
-      {path:"/params",component:params}
+      {path:"/params",component:params},
+      {path:"/goods",component:goods}
     ]
   }
 ]

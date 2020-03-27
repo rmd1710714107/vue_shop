@@ -49,6 +49,12 @@ function submitParamsTag(params){
     attr_vals:params.attr_vals
   });
 }
+/* 以下是商品分类相关请求 */
+function getGoodsList(params){
+  return axios.get("goods",{
+    params
+  })
+}
 export{
   getCateList,
   addCate,
@@ -58,5 +64,6 @@ export{
   queryParams,
   editParams,
   deleteParams,
-  submitParamsTag
+  submitParamsTag,
+  getGoodsList
 }
