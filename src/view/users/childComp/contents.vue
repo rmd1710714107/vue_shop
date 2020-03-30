@@ -1,8 +1,8 @@
 <template>
 <!-- 这是用户列表界面 -->
   <div class="contents">
-    <card>
-      <el-row :gutter="20">
+    <main-content :content="content">
+      <el-row :gutter="20" slot="top">
         <el-col :span="10">
           <el-input
             placeholder="请输入内容"
@@ -20,7 +20,7 @@
       </el-row>
 
       <!-- 用户列表区 -->
-      <el-table :data="usersList" border stripe>
+      <el-table :data="usersList" border stripe slot="middle">
         <el-table-column type="index" label="序号"></el-table-column>
         <el-table-column
           v-for="(item,index) in tableData"
@@ -61,8 +61,9 @@
         :page-size="params.pagesize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="total"
+        slot="bottom"
       ></el-pagination>
-    </card>
+    </main-content>
   </div>
 </template>
 
@@ -73,11 +74,11 @@ import {
   deleteUsers
 } from "network/users";
 import { message } from "components/message";
-import card from "components/card"
+import mainContent from "components/mainContent"
 export default {
   name: "contents",
   components: {
-    card
+    mainContent
   },
   data() {
     return {
@@ -98,7 +99,8 @@ export default {
         query: "",
         pagenum: 1,
         pagesize: 2
-      }
+      },
+      content:["用户管理","用户列表"]
     };
   },
   mounted() {
@@ -168,7 +170,6 @@ export default {
 };
 </script>
 <style scoped>
-.el-card,
 .el-table,
 .el-pagination {
   margin-top: 0.15rem;

@@ -1,7 +1,7 @@
 <template>
   <div class="contents">
-    <card>
-      <el-row :gutter="20">
+    <main-content :content="content">
+      <el-row :gutter="20" slot="top">
         <el-col :span="10">
           <el-input
             placeholder="请输入商品"
@@ -14,11 +14,11 @@
           </el-input>
         </el-col>
         <el-col :span="4">
-          <el-button type="primary">添加商品</el-button>
+          <el-button type="primary" @click="toAddGoods">添加商品</el-button>
         </el-col>
       </el-row>
 
-      <el-table border :data="goodsList" :highlight-current-row="true">
+      <el-table border :data="goodsList" :highlight-current-row="true" slot="middle">
         <el-table-column type="index" label="序号" header-align="center" width="50"></el-table-column>
         <el-table-column
           v-for="(item,index) in tableParams"
@@ -59,21 +59,22 @@
         :page-size="shop.pagesize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="total"
+        slot="bottom"
       ></el-pagination>
-    </card>
+    </main-content>
   </div>
 </template>
 
 <script>
-import card from "../../../../components/card";
-import { getGoodsList } from "../../../../network/product";
+import mainContent from "components/mainContent"
+import { getGoodsList,deleteGoods } from "../../../../network/product";
 import { message } from "../../../../components/message";
 import moment from "moment"; //格式化时间的库
 import tableContent from "./tableContent"
 export default {
   name: "",
   components: {
-    card,
+    mainContent,
     tableContent
   },
   data() {
@@ -115,7 +116,8 @@ export default {
           show_overflow_tooltip: false
         }
       ], //表格的各项参数
-      isLight:false//是否高亮搜索结果
+      isLight:false,//是否高亮搜索结果
+      content:["商品管理","商品列表"]
     };
   },
   created() {
@@ -159,6 +161,40 @@ export default {
         return "";
       }
       return moment(date).format("YYYY-MM-DD HH:mm:ss");
+    },
+    deleteGoods(id){
+      this.$confirm("此操作将永久该商品", "警告", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          deleteGoods(id).then(res => {
+            if (res.data.meta.status !== 200) {
+              message(true, "error", res.data.meta.msg);
+            } else {
+              message(true, "success", res.data.meta.msg);
+              this.getGoodsList();
+            }
+          });
+        })
+        .catch(() => {
+          message(true, "info", "已取消删除");
+        });
+    },
+    operate(index,data){
+      switch (index) {
+        case 0:
+          return 0;
+          break;
+      
+        default:
+          this.deleteGoods(data.goods_id);
+          break;
+      }
+    },
+    toAddGoods(){
+      this.$router.push("/goods/addGoods")
     },
     queryGood(id) {}
   }

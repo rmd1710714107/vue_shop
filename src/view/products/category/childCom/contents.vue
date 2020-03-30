@@ -1,7 +1,7 @@
 <template>
   <div class="contents">
-    <card>
-      <el-button type="primary" @click="addCate">添加分类</el-button>
+    <main-content :content="nav">
+      <el-button type="primary" @click="addCate" slot="top">添加分类</el-button>
       <tree-table
         :data="cateList"
         :columns="columns"
@@ -11,6 +11,7 @@
         :border="true"
         :show-row-hover="false"
         class="treeTable"
+        slot="middle"
       >
         <template v-slot:isok="scope">
           <i class="el-icon-success" v-if="scope.row.cat_deleted===false" style="color:lightgreen;"></i>
@@ -23,7 +24,7 @@
         </template>
         <template v-slot:operate="scope">
           <el-button type="primary" size="mini" icon="el-icon-edit">编辑</el-button>
-          <el-button type="danger" size="mini" icon="el-icon-delete">编辑</el-button>
+          <el-button type="danger" size="mini" icon="el-icon-delete">删除</el-button>
         </template>
       </tree-table>
       <el-pagination
@@ -34,19 +35,20 @@
         :page-size="queryInfo.pagesize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="total"
+        slot="bottom"
       ></el-pagination>
-    </card>
+    </main-content>
   </div>
 </template>
 
 <script>
-import card from "../../../../components/card";
+import mainContent from "components/mainContent"
 import { getCateList } from "../../../../network/product";
 import { message } from "../../../../components/message";
 export default {
   name: "contents",
   components: {
-    card
+    mainContent
   },
   created() {
     this.getCateList();
@@ -77,7 +79,8 @@ export default {
           type: "template", //表示当前列定义为模板列
           template: "operate" //表示当前这一列使用模板名称
         }
-      ]
+      ],
+      nav:["商品管理","商品分类"]
     };
   },
   mounted () {

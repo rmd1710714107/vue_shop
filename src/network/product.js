@@ -17,7 +17,6 @@ function getParentCate(params){
   })
 }
 function getParamsList(id,params){
-  console.log(`/categories/${id}/attributes`);
   return axios.get(`/categories/${id}/attributes`,{
     params
   })
@@ -55,6 +54,12 @@ function getGoodsList(params){
     params
   })
 }
+function deleteGoods(id) {
+  return axios.delete(`goods/${id}`)
+}
+function addGoods(params){
+  return axios.post("goods",params)
+}
 export{
   getCateList,
   addCate,
@@ -65,5 +70,7 @@ export{
   editParams,
   deleteParams,
   submitParamsTag,
-  getGoodsList
+  getGoodsList,
+  deleteGoods,
+  addGoods
 }

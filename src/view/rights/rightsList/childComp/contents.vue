@@ -1,7 +1,7 @@
 <template>
     <div class="contents">
-      <card>
-        <el-table :data="rightsList" border stripe>
+      <main-content :content="nav">
+        <el-table :data="rightsList" border stripe slot="middle">
           <el-table-column type="index"></el-table-column>
           <el-table-column label="权限名称" prop="authName"></el-table-column>
           <el-table-column label="路径" prop="path"></el-table-column>
@@ -13,22 +13,23 @@
             </template>
           </el-table-column>
         </el-table>
-      </card>
+      </main-content>
     </div>
 </template>
 
 <script>
 import {message} from "components/message"
-import card from "components/card"
+import mainContent from "components/mainContent"
 import {getRightsList} from "network/rights.js"
 export default {
   name:"contents",
   components: {
-    card
+    mainContent
   },
   data() {
     return {
-      rightsList:[]
+      rightsList:[],
+      nav:["权限管理","权限列表"]
     };
   },
   mounted(){

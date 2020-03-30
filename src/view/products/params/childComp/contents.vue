@@ -1,9 +1,9 @@
 <template>
   <div class="contents">
     <!-- 参数分类表格 -->
-    <card>
+    <main-content :content="content">
       <el-alert title="注意：只允许为第三级分类设置相关参数" type="warning"></el-alert>
-      <el-row class="cat_opt">
+      <el-row class="cat_opt" slot="top">
         <el-col>
           <span>选择商品分类：</span>
           <el-cascader
@@ -14,7 +14,7 @@
           ></el-cascader>
         </el-col>
       </el-row>
-      <el-tabs v-model="activeName" @tab-click="getParams">
+      <el-tabs v-model="activeName" @tab-click="getParams" slot="middle">
         <el-tab-pane
           v-for="(item,index) in tabPane"
           :key="index"
@@ -73,7 +73,7 @@
           </el-table>
         </el-tab-pane>
       </el-tabs>
-    </card>
+    </main-content>
     <add-dia
       :activeName="activeName"
       :cat_id="cat_id"
@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import card from "../../../../components/card";
+import mainContent from "components/mainContent"
 import {
   getCateList,
   getParamsList,
@@ -99,7 +99,7 @@ import editDia from "./editDia";
 export default {
   name: "contents",
   components: {
-    card,
+    mainContent,
     addDia,
     editDia
   },
@@ -145,7 +145,8 @@ export default {
         }
       ],
       attr_id: 0,
-      editForm: {} //要传给编辑界面的数据
+      editForm: {}, //要传给编辑界面的数据
+      content:["商品管理","参数列表"]
     };
   },
   computed: {

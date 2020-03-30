@@ -12,6 +12,7 @@
     "element-ui": "^2.4.5",
     "moment": "^2.24.0",
     "vue": "^2.6.11",
+    "vue-quill-editor": "^3.0.6",
     "vue-table-with-tree-grid": "^0.2.4"
   },
   "devDependencies": {
@@ -19,6 +20,7 @@
     "@vue/cli-service": "^4.2.0",
     "babel-plugin-component": "^1.1.1",
     "got": "^10.5.5",
+    "lodash": "^4.17.15",
     "vue-cli-plugin-element": "^1.0.1",
     "vue-router": "^3.1.5",
     "vue-template-compiler": "^2.6.11"

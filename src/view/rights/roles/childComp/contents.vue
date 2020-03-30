@@ -1,13 +1,13 @@
 <template>
   <!-- 这是角色权限内容 -->
   <div class="contents">
-    <card>
-      <el-row>
+    <main-content :content="content">
+      <el-row slot="top">
         <el-col>
           <el-button type="primary" @click="addRoles">添加角色</el-button>
         </el-col>
       </el-row>
-      <el-table :data="rolesList" border stripe class="elTable">
+      <el-table :data="rolesList" border stripe class="elTable" slot="middle">
         <el-table-column type="expand">
           <template v-slot="scope">
             <role-rights :scope="scope.row"></role-rights>
@@ -33,7 +33,7 @@
           </template>
         </el-table-column>
       </el-table>
-    </card>
+    </main-content>
 
     <!-- 分配权限对话框 -->
     <allot-rights :rightsList="rightsList" :role="role" ref="allotRights"></allot-rights>
@@ -42,7 +42,7 @@
 
 <script>
 import allotRights from "./allotRights";
-import card from "../../../../components/card";
+import mainContent from "components/mainContent"
 import {
   getRolesList,
   deleteRight,
@@ -53,7 +53,7 @@ import roleRights from "./roleRights";
 export default {
   name: "contents",
   components: {
-    card,
+    mainContent,
     roleRights,
     allotRights
   },
@@ -71,7 +71,8 @@ export default {
         { icon: "el-icon-setting", type: "warning", operate: "分配权限" }
       ],
       rightsList: [],
-      role: {}
+      role: {},
+      content:["权限管理","角色列表"]
     };
   },
   created() {
