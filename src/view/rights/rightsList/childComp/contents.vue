@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import {message} from "components/message"
+import {message} from "../../../../utils/message"
 import mainContent from "components/mainContent"
 import {getRightsList} from "network/rights.js"
 export default {
@@ -35,7 +35,7 @@ export default {
   mounted(){
     getRightsList(this.$route.path,"list").then(res=>{
       if(res.data.meta.status!==200){
-        message(true,"error",res.data.meta.msg);
+        message("error",res.data.meta.msg);
       }else{
         this.rightsList=res.data.data;
       }

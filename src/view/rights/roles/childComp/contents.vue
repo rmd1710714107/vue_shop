@@ -48,7 +48,7 @@ import {
   deleteRight,
   getAllRights
 } from "../../../../network/rights";
-import { message } from "../../../../components/message";
+import { message } from "../../../../utils/message";
 import roleRights from "./roleRights";
 export default {
   name: "contents",
@@ -87,7 +87,7 @@ export default {
       if (index === 2) {
         getAllRights("tree").then(res => {
           if (res.data.meta.status !== 200) {
-            message(true, "error", res.data.meta.msg);
+            message( "error", res.data.meta.msg);
           } else {
             this.rightsList = res.data.data;
             new Promise((resolve, rejected) => {
@@ -104,7 +104,7 @@ export default {
     getRolesList() {
       getRolesList(this.$route.path).then(res => {
         if (res.data.meta.status !== 200) {
-          message(true, "error", res.data.meta.msg);
+          message("error", res.data.meta.msg);
         } else {
           this.rolesList = res.data.data;
         }

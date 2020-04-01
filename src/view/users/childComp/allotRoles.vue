@@ -24,7 +24,7 @@
 
 <script>
 import { getRoles, allotRoles } from "../../../network/users";
-import { message } from "../../../components/message";
+import { message } from "../../../utils/message";
 export default {
   name: "allotRoles",
   props: {},
@@ -50,7 +50,7 @@ export default {
       this.currentRole = this.initialData.role_name;
       getRoles().then(res => {
         if (res.data.meta.status !== 200) {
-          message(true, "error", res.data.meta.msg);
+          message( "error", res.data.meta.msg);
         } else {
           this.rolesList = res.data.data;
         }
@@ -58,11 +58,11 @@ export default {
     },
     allotRoles() {
       if (!this.roleId) {
-        return message(true, "error", "选择要分配的角色");
+        message( "error", "选择要分配的角色");
       } else {
         allotRoles(this.initialData.id, this.roleId).then(res => {
           if (res.data.meta.status !== 200) {
-            message(true, "error", res.data.meta.msg);
+            message( "error", res.data.meta.msg);
           } else {
             this.$bus.$emit("update");
           }

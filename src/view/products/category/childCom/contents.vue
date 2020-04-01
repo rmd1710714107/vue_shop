@@ -44,7 +44,7 @@
 <script>
 import mainContent from "components/mainContent"
 import { getCateList } from "../../../../network/product";
-import { message } from "../../../../components/message";
+import { message } from "../../../../utils/message";
 export default {
   name: "contents",
   components: {
@@ -90,7 +90,7 @@ export default {
     getCateList() {
       getCateList(this.queryInfo).then(res => {
         if (res.data.meta.status !== 200) {
-          message(true, "error", res.data.meta.msg);
+          message("error", res.data.meta.msg);
         } else {
           this.cateList = res.data.data.result;
           this.total = res.data.data.total;

@@ -99,7 +99,7 @@
 <script>
 import mainContent from "../../../../components/mainContent";
 import { getCateList, getParamsList,addGoods } from "../../../../network/product";
-import { message } from "../../../../components/message";
+import { message } from "../../../../utils/message";
 import _ from "lodash"
 export default {
   name: "addGoods",
@@ -158,7 +158,7 @@ export default {
     getCateList() {
       getCateList().then(res => {
         if (res.data.meta.status !== 200) {
-          message(true, "error", res.data.meta.msg);
+          message("error", res.data.meta.msg);
         } else {
           this.cateList = res.data.data;
         }
@@ -171,7 +171,7 @@ export default {
     },
     beforeTabLeave(activeName, oldActiveName) {
       if (oldActiveName === "0" && this.addForm.goods_cat.length !== 3) {
-        message(true, "error", "请先选择商品分类");
+        message("error", "请先选择商品分类");
         return false;
       }
     },
@@ -182,7 +182,7 @@ export default {
           res => {
             console.log(res);
             if (res.data.meta.status !== 200) {
-              message(true, "error", res.data.meta.msg);
+              message("error", res.data.meta.msg);
             } else {
               res.data.data.forEach(item => {
                 item.attr_vals =
@@ -197,7 +197,7 @@ export default {
           res => {
             console.log(res);
             if (res.data.meta.status !== 200) {
-              message(true, "error", res.data.meta.msg);
+              message("error", res.data.meta.msg);
             } else {
               // res.data.data.forEach(item => {
               //   item.attr_vals=item.attr_vals.length === 0 ? [] : item.attr_vals.split(",");

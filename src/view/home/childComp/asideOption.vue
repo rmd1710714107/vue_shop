@@ -39,7 +39,7 @@
 
 <script>
 import { getMenuList } from "network/request.js";
-import {message} from "components/message.js"
+import {message} from "../../../utils/message"
 export default {
   name: "asideOption",
   components: {},
@@ -59,7 +59,7 @@ export default {
   mounted() {
     getMenuList().then(res => {
       if (res.data.meta.status !== 200) {
-        message(true,"error",res.data.meta.msg);
+        message("error",res.data.meta.msg);
       } else {
         this.menuList = res.data.data;
       }

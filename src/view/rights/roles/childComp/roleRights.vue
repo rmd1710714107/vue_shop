@@ -31,7 +31,7 @@
 
 <script>
 import { deleteRight } from "../../../../network/rights";
-import { message } from "../../../../components/message";
+import { message } from "../../../../utils/message";
 export default {
   name: "roleRights",
   props: {
@@ -57,14 +57,14 @@ export default {
           console.log(roleId,rightId);
           deleteRight(role.id,right.id).then(res=>{
             if(res.data.meta.status!==200){
-              message(true, "error", "删除失败");
+              message( "error", "删除失败");
             }else{
               role.children=res.data.data;
             }
           })
         })
         .catch(error => {
-          message(true, "info", "已取消");
+          message( "info", "已取消");
         });
     }
   }

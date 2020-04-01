@@ -8,7 +8,7 @@
 <script>
 import { addUsers } from "network/users.js";
 import formDia from "components/dialog";
-import {message} from "components/message.js"
+import {message} from "../../../utils/message"
 export default {
   name: "addUsers",
   components: {
@@ -66,9 +66,9 @@ export default {
       addUsers(formData[0]).then(res => {
         console.log(res);
         if(res.data.meta.status!==201){
-          message(true,"error","添加失败")
+          message("error","添加失败")
         }else{
-          message(true,"success","添加成功");
+          message("success","添加成功");
           this.$bus.$emit("update");
           formData[1].resetFields();
         }

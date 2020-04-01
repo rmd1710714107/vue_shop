@@ -68,7 +68,7 @@
 <script>
 import mainContent from "components/mainContent"
 import { getGoodsList,deleteGoods } from "../../../../network/product";
-import { message } from "../../../../components/message";
+import { message } from "../../../../utils/message";
 import moment from "moment"; //格式化时间的库
 import tableContent from "./tableContent"
 export default {
@@ -128,7 +128,7 @@ export default {
     getGoodsList() {
       getGoodsList(this.shop).then(res => {
         if (res.data.meta.status !== 200) {
-          message(true, "error", res.data.meta.msg);
+          message("error", res.data.meta.msg);
         } else {
           this.goodsList = res.data.data.goods;
           console.log(this.goodsList);
@@ -171,15 +171,15 @@ export default {
         .then(() => {
           deleteGoods(id).then(res => {
             if (res.data.meta.status !== 200) {
-              message(true, "error", res.data.meta.msg);
+              message("error", res.data.meta.msg);
             } else {
-              message(true, "success", res.data.meta.msg);
+              message("success", res.data.meta.msg);
               this.getGoodsList();
             }
           });
         })
         .catch(() => {
-          message(true, "info", "已取消删除");
+          message("info", "已取消删除");
         });
     },
     operate(index,data){

@@ -17,7 +17,7 @@
 
 <script>
 import { addParams } from "../../../../network/product";
-import { message } from "../../../../components/message";
+import { message } from "../../../../utils/message";
 export default {
   name: "addDia",
   props: {
@@ -72,9 +72,9 @@ export default {
         if(!valid) return;
         addParams({cat_id:this.cat_id,attr_name:this.addForm.attr_name,attr_sel:this.activeName}).then(res=>{
           if(res.data.meta.status!==201){
-            message(true,"error",res.data.meta.msg);
+            message("error",res.data.meta.msg);
           }else{
-            message(true,"success",res.data.meta.msg);
+            message("success",res.data.meta.msg);
             this.isShow("add");
           }
         })

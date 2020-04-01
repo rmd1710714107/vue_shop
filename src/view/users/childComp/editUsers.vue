@@ -7,7 +7,7 @@
 <script>
 import formDia from "components/dialog";
 import {queryUsers,editUsers} from "network/users.js"
-import {message} from "components/message"
+import {message} from "../../../utils/message"
 export default {
   name: "queryUsers",
   components: {
@@ -59,7 +59,7 @@ export default {
       this.toast.addDialogVisible = true;
       queryUsers(data.id).then(res=>{
         if(res.data.meta.status!==200){
-          message(true,"error",res.data.meta.msg);
+          message("error",res.data.meta.msg);
         }else{
            this.formData=res.data.data;
         }
@@ -72,9 +72,9 @@ export default {
       editUsers(this.formData.id,formData[0]).then(res=>{
         console.log(res);
         if(res.data.meta.status!==200){
-          message(true,"error",res.data.meta.msg);
+          message("error",res.data.meta.msg);
         }else{
-          message(true,"success",res.data.meta.msg);
+          message("success",res.data.meta.msg);
           this.$bus.$emit("update");
         }
       })

@@ -27,7 +27,7 @@
 
 <script>
 import { addCate, getParentCate } from "../../../../network/product";
-import { message } from "../../../../components/message";
+import { message } from "../../../../utils/message";
 export default {
   name: "addCate",
   components: {},
@@ -109,13 +109,6 @@ export default {
           }
         });
       });
-    },
-    reset() {
-      // console.log("reset");
-      // this.$refs.addCateFormRef.resetFields();
-      // this.selectedKeys = [];
-      // this.formData.cat_level = 0;
-      // this.formData.cat_pid = 0;
     }
   }
 };

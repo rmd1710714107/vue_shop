@@ -20,7 +20,7 @@
 
 <script>
 import {allotRights} from "../../../../network/rights"
-import {message} from "../../../../components/message"
+import {message} from "../../../../utils/message"
 export default {
   name: "allotRights",
   props: {
@@ -72,9 +72,9 @@ export default {
       allotRights(this.role.id,rids).then(res=>{
         console.log(res);
         if(res.data.meta.status!==200){
-          message(true,"error","res.data.meta.msg");
+          message("error","res.data.meta.msg");
         }else{
-          message(true,"success","分配成功");
+          message("success","分配成功");
           this.$bus.$emit("allotRights")
         }
       })

@@ -30,7 +30,7 @@
 
 <script>
 import {login} from "network/users.js"
-import {message} from "components/message.js"
+import {message} from "../../../utils/message"
 export default {
   name: "inputArea",
   components: {
@@ -68,13 +68,13 @@ export default {
         case 0:
           this.$refs.form.validate((valid)=>{
             if(!valid){
-              message(true,"error","请输入正确格式的数据");
+              message("error","请输入正确格式的数据");
             }else{
               login(this.login.username,this.login
               .password).then((res)=>{
                 let userInfo=res.data;
                 if(userInfo.meta.status!==200){
-                  message(true,"error",userInfo.meta.msg);
+                  message("error",userInfo.meta.msg);
                 }else{
                   window.sessionStorage.setItem("token",userInfo.data.token);
                   this.$router.push("/home");

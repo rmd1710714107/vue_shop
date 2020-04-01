@@ -73,7 +73,7 @@ import {
   changeState,
   deleteUsers
 } from "network/users";
-import { message } from "components/message";
+import { message } from "../../../utils/message";
 import mainContent from "components/mainContent"
 export default {
   name: "contents",
@@ -111,7 +111,7 @@ export default {
     getUsersList() {
       getUsersList(this.$route.path, this.params).then(res => {
         if (res.data.meta.status !== 200) {
-          this.message(true, "error", res.data.meta.msg);
+          message( "error", res.data.meta.msg);
         } else {
           this.usersList = res.data.data.users;
           this.total = res.data.data.total;
@@ -129,9 +129,9 @@ export default {
     statusChange(data) {
       changeState(this.$route.path, data.id, data.mg_state).then(res => {
         if (res.data.meta.status !== 200) {
-          message(true, "error", res.data.meta.msg);
+          message( "error", res.data.meta.msg);
         } else {
-          message(true, "success", res.data.meta.msg);
+          message( "success", res.data.meta.msg);
         }
       });
     },
@@ -155,15 +155,15 @@ export default {
         .then(() => {
           deleteUsers(id).then(res => {
             if (res.data.meta.status !== 200) {
-              message(true, "error", res.data.meta.msg);
+              message( "error", res.data.meta.msg);
             } else {
-              message(true, "success", res.data.meta.msg);
+              message( "success", res.data.meta.msg);
               this.getUsersList();
             }
           });
         })
         .catch(error => {
-          message(true, "info", "已取消");
+          message( "info", "已取消");
         });
     }
   }

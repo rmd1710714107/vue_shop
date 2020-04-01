@@ -1,24 +1,27 @@
 <template>
   <div class="dialog">
-    <el-dialog :title="toast.title" :visible.sync="toast.addDialogVisible" width="50%">
+    <el-dialog :title="toast.title" :visible.sync="toast.dialogVisible" width="50%">
       <!-- 内容主体区域 -->
-      <el-form ref="form" label-width="70px" class="input" :model="userInfo" :rules="rulers">
+      <el-form ref="form" :label-width="toast.labelWidth" class="input" :model="info" :rules="rulers">
         <el-form-item
           v-for="(item,index) in dialog"
           :key="index"
           :label="item.label"
           :prop="item.dataType"
         >
+          <div v-if="index===0"><slot name="top"></slot></div>
           <el-input
-            v-model="userInfo[item.dataType]"
+            v-model="info[item.dataType]"
             :type="item.dataType=='password'?'password':''"
             :disabled="item.disabled"
-          ></el-input>
+            v-else
+          >
+          </el-input>
         </el-form-item>
       </el-form>
       <!-- 底部区域 -->
       <span slot="footer" class="dialog-footer">
-        <el-button @click="toast.addDialogVisible = false">取 消</el-button>
+        <el-button @click="toast.dialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="validate">确 定</el-button>
       </span>
     </el-dialog>
@@ -47,7 +50,7 @@ export default {
         return {};
       }
     },
-    userInfo: {
+    info: {
       type: Object,
       default() {
         return {
@@ -83,8 +86,8 @@ export default {
     validate() {
       this.$refs.form.validate(validate => {
         if (validate) {
-          this.$emit("dialog", [this.userInfo,this.$refs.form]);
-          this.toast.addDialogVisible = false;
+          this.$emit("dialog", [this.info,this.$refs.form]);
+          this.toast.dialogVisible = false;
         }
       });
     }

@@ -93,7 +93,7 @@ import {
   deleteParams,
   submitParamsTag
 } from "../../../../network/product";
-import { message } from "../../../../components/message";
+import { message } from "../../../../utils/message";
 import addDia from "./addDia";
 import editDia from "./editDia";
 export default {
@@ -106,7 +106,7 @@ export default {
   created() {
     getCateList().then(res => {
       if (res.data.meta.status !== 200) {
-        message(true, "error", res.data.meta.msg);
+        message( "error", res.data.meta.msg);
       } else {
         this.catList = res.data.data;
       }
@@ -179,7 +179,7 @@ export default {
         getParamsList(this.cat_id, { sel: this.activeName }).then(res => {
           console.log(res);
           if (res.data.meta.status !== 200) {
-            message(true, "error", res.data.meta.msg);
+            message( "error", res.data.meta.msg);
           } else {
             if (res.data.data.length === 0) {
               this.emptyText = "该分类参数为空";
@@ -219,7 +219,7 @@ export default {
         attr_sel: this.activeName
       }).then(res => {
         if (res.data.meta.status !== 200) {
-          message(true, "error", res.data.meta.msg);
+          message( "error", res.data.meta.msg);
         } else {
           this.editForm = res.data.data;
           this.showEditDia();
@@ -235,15 +235,15 @@ export default {
         .then(() => {
           deleteParams(data).then(res => {
             if (res.data.meta.status !== 200) {
-              message(true, "error", res.data.meta.msg);
+              message( "error", res.data.meta.msg);
             } else {
-              message(true, "success", res.data.meta.msg);
+              message( "success", res.data.meta.msg);
               this.getParams();
             }
           });
         })
         .catch(() => {
-          message(true, "info", "已取消删除");
+          message( "info", "已取消删除");
         });
     },
     showInput(data) {
@@ -274,9 +274,9 @@ export default {
         attr_vals: data.attr_vals.join(",")
       }).then(res => {
         if (res.data.meta.status !== 200) {
-          message(true, "error", res.data.meta.msg);
+          message( "error", res.data.meta.msg);
         } else {
-          message(true, "success", res.data.meta.msg);
+          message( "success", res.data.meta.msg);
         }
       })
     },
