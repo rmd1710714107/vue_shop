@@ -1,6 +1,6 @@
 <template>
   <div class="edit">
-    <form-dia :dialog="edit" :toast="toast" :rulers="FormRules" @dialog="editUsers" :userInfo="formData"></form-dia>
+    <form-dia :dialog="edit" :toast="toast" :rulers="FormRules" @dialog="editUsers" :info="formData"></form-dia>
   </div>
 </template>
 
@@ -34,7 +34,9 @@ export default {
       id:"",
       toast:{
         title: "修改用户",
-        addDialogVisible:false
+        dialogVisible:false,
+        labelWidth:"70px",
+        showBox:1
       },
       edit: [
         { dataType: "username", label: "用户名",disabled:true },
@@ -56,7 +58,7 @@ export default {
   },
   mounted(){
     this.$bus.$on("edit",(data)=>{
-      this.toast.addDialogVisible = true;
+      this.toast.dialogVisible = true;
       queryUsers(data.id).then(res=>{
         if(res.data.meta.status!==200){
           message("error",res.data.meta.msg);

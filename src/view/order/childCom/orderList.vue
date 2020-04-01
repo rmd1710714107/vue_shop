@@ -29,7 +29,8 @@
         <el-table-column label="操作">
           <template>
             <el-button size="mini" type="primary" icon="el-icon-edit" @click="edit"></el-button>
-            <el-button size="mini" type="success" icon="el-icon-location"></el-button>
+            <el-button size="mini" type="success" icon="el-icon-location" @click="showProgress"></el-button>
+            <!-- @click="showProgress" -->
           </template>
         </el-table-column>
       </el-table>
@@ -44,24 +45,34 @@
         slot="bottom"
       ></el-pagination>
     </main-content>
-    <form-dia :dialog="dialog" :info="info" :toast="toast" :rulers="rulers">
+    <form-dia :dialog="dialog" :info="info" :toast="toast" :rulers="rulers" @dialog="successEdit">
       <el-cascader
         slot="top"
-        v-model="city"
+        v-model="info.province"
         :options="cityOptions"
         :props="{ expandTrigger: 'hover' }"
       ></el-cascader>
     </form-dia>
+    <el-dialog title="物流信息" :visible.sync="dialogVisible" width="50%">
+      <el-timeline>
+        <el-timeline-item
+          v-for="(item, index) in processData"
+          :key="index"
+          :timestamp="item.time"
+          :color="index===0?'#0bbd87':''"
+        >{{item.context}}</el-timeline-item>
+      </el-timeline>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import mainContent from "../../../components/mainContent";
-import { getOrderList } from "../../../network/order";
+import { getOrderList, getLogisticsData } from "../../../network/order";
 import { message } from "../../../utils/message";
 import moment from "moment"; //格式化时间的库
 import formDia from "../../../components/dialog";
-import cityOptions from '../../../utils/cityOptions'
+import cityOptions from "../../../utils/cityOptions";
 export default {
   name: "",
   components: {
@@ -70,7 +81,6 @@ export default {
   },
   data() {
     return {
-      city:[],
       cityOptions: cityOptions,
       queryInfo: {
         pagenum: 1,
@@ -85,23 +95,25 @@ export default {
       toast: {
         title: "修改地址",
         dialogVisible: false,
-        labelWidth: "100px"
+        labelWidth: "100px",
+        showBox: 1
       },
+      dialogVisible: false,
       dialog: [
-        { label: "省市区\\县", dataType: "province", disabled: false },
+        { label: "省市区\\县", dataType: "province", disabled: false,flag:"slot" },
         { label: "详细地址", dataType: "detailAdress", disabled: false }
       ],
       info: {
+        province: [],
         detailAdress: ""
       },
       rulers: {
-        province:[
-          { required: true, message: "省市区\\县", trigger: "blur" }
-        ],
+        province: [{ required: true, message: "省市区\\县", trigger: "blur" }],
         detailAdress: [
           { required: true, message: "请输入详细地址", trigger: "blur" }
         ]
-      }
+      },
+      processData:[]
     };
   },
   created() {
@@ -136,8 +148,21 @@ export default {
       this.getOrderList();
     },
     edit() {
-      console.log(this.toast.dialogVisible);
       this.toast.dialogVisible = true;
+    },
+    successEdit(params) {
+      console.log(params);
+    },
+    showProgress() {
+      getLogisticsData().then(res => {
+        console.log(res);
+        if(res.data.meta.status!==200){
+          message("error",res.data.meta.msg);
+        }else{
+          this.processData=res.data.data;
+        }
+      });
+      this.dialogVisible = true;
     }
   }
 };

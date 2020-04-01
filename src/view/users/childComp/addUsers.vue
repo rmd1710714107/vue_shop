@@ -34,7 +34,9 @@ export default {
     return {
       toast:{
         title:"添加用户",
-        addDialogVisible:false
+        dialogVisible:false,
+        labelWidth:"70px",
+        showBox:1
       },
       add: [
         { dataType: "username", label: "用户名",disabled:false },
@@ -58,7 +60,7 @@ export default {
   },
   mounted() {
     this.$bus.$on("addUsers", () => {
-      this.toast.addDialogVisible = true;
+      this.toast.dialogVisible = true;
     });
   },
   methods: {

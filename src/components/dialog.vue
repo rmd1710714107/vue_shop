@@ -9,7 +9,7 @@
           :label="item.label"
           :prop="item.dataType"
         >
-          <div v-if="index===0"><slot name="top"></slot></div>
+          <div v-if="item.flag==='slot'"><slot name="top"></slot></div>
           <el-input
             v-model="info[item.dataType]"
             :type="item.dataType=='password'?'password':''"
@@ -20,7 +20,7 @@
         </el-form-item>
       </el-form>
       <!-- 底部区域 -->
-      <span slot="footer" class="dialog-footer">
+      <span slot="footer" class="dialog-footer" v-if="toast.showBox===1">
         <el-button @click="toast.dialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="validate">确 定</el-button>
       </span>
@@ -54,10 +54,6 @@ export default {
       type: Object,
       default() {
         return {
-          username: "",
-          password: "",
-          email: "",
-          mobile: ""
         };
       }
     }
