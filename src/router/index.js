@@ -11,6 +11,7 @@ const params=()=>import("../view/products/params/params.vue")
 const goods=()=>import("../view/products/goods/goods.vue")
 const addGoods=()=>import("../view/products/goods/childComp/addGoods.vue")
 const order=()=>import("../view/order/order.vue")
+const report=()=>import("../view/report/report.vue")
 vue.use(Router);
 const routes = [
   { path: "/", redirect: "/login" },
@@ -28,7 +29,8 @@ const routes = [
       {path:"/params",component:params},
       {path:"/goods",component:goods},
       {path:"/goods/addGoods",component:addGoods},
-      {path:"/orders",component:order}
+      {path:"/orders",component:order},
+      {path:"/reports",component:report}
     ]
   }
 ]
