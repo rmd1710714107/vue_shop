@@ -13,7 +13,7 @@
     "echarts": "^4.7.0",
     "element-ui": "^2.4.5",
     "minimist": "^1.2.3",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "nprogress": "^0.2.0",
     "vue": "^2.6.11",
     "vue-quill-editor": "^3.0.6",
